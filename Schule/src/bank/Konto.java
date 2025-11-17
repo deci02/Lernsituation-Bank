@@ -1,7 +1,12 @@
 package bank;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import bank.Kontobewegung.QuarterStart;
 
 public class Konto {
 
@@ -11,6 +16,7 @@ public class Konto {
 	private Kunde myKunde;
 	private Bank myBank;
 	protected ArrayList<Kontobewegung> myBew;
+	protected double sollzins;
 
 	public Konto(String ktoNummer, Kunde kunde, double zinsen, double ersteinzahlung, Bank bank, LocalDateTime datum) {
 		myBew = new ArrayList<Kontobewegung>();
@@ -47,8 +53,26 @@ public class Konto {
 	}
 
 	protected void einzahlen(double betrag, LocalDateTime datum, String kommentar) {
+		Kontobewegung prev = myBew.getLast();
+		Kontobewegung curr = new Kontobewegung(betrag, datum, this, kommentar);
+		calcZins(curr, prev);
 		kontostand = kontostand + betrag;
-		myBew.add(new Kontobewegung(betrag, datum, this, kommentar));
+		myBew.add(curr);
+	}
+
+	private void calcZins(Kontobewegung curr, Kontobewegung prev) {
+		if (this.kontostand > 0) {
+			curr.zinsbetrag = this.kontostand * this.habenzins / 100 * ChronoUnit.DAYS
+					.between(prev.getLocalDateTime().toLocalDate(), curr.getLocalDateTime().toLocalDate()) / 365;
+		} else {
+			curr.zinsbetrag = prev.betrag * (this.sollzins / 100) * ChronoUnit.DAYS
+					.between(prev.getLocalDateTime().toLocalDate(), curr.getLocalDateTime().toLocalDate());
+		}
+		LocalDate q = curr.checkQuartalswechsel(curr, prev);
+		if (q != null) {
+			LocalDateTime datum = LocalDateTime.of(q, LocalTime.of(0, 0));
+			myBew.add(new Kontobewegung(curr.zinsbetrag, datum, this, "Zinsen"));
+		}
 	}
 
 }
