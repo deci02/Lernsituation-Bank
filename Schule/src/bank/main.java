@@ -33,12 +33,6 @@ public class main {
 		lieschengiro1.abheben(100.5, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0));
 		lieschenspar1.einzahlen(2850, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0), "Einzahlung ");
 
-		LocalDateTime heute = LocalDateTime.now();
-
-		paulgiro1.berechnenZinsen(heute);
-		lieschengiro1.berechnenZinsen(heute);
-		lieschenspar1.berechnenZinsen();
-
 		sparkassemuenster.ausgebenKunden();
 		sparkassemuenster.ausgebenKonten();
 	}
