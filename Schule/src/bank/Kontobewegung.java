@@ -13,9 +13,10 @@ public class Kontobewegung {
 	protected double betrag;
 	private LocalDateTime datum;
 	private Konto myKonto;
-	private String kommentar;
+	protected String kommentar;
 	protected double zinsbetrag;
 	protected boolean quartalswechsel;
+	protected boolean jahreswechsel;
 
 	public enum QuarterStart {
 		Q1(Month.JANUARY, 1), Q2(Month.APRIL, 1), Q3(Month.JULY, 1), Q4(Month.OCTOBER, 1);
@@ -45,6 +46,10 @@ public class Kontobewegung {
 		int yearStart = prev.getYear();
 		int yearEnd = curr.getYear();
 
+		if (yearStart != yearEnd) {
+			this.jahreswechsel = true;
+		}
+
 		for (int year = yearStart; year <= yearEnd; year++) {
 			for (QuarterStart q : QuarterStart.values()) {
 				LocalDate qStart = q.getStartDate(year);
@@ -66,11 +71,11 @@ public class Kontobewegung {
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.GERMANY));
 		if (Math.abs(betrag) >= 1000) {
-			return datum.format(DateTimeFormatter.ofPattern("dd.MMMyyyy")).concat("\t")
-					.concat(String.valueOf(df.format(betrag))).concat("Euro\t").concat(kommentar);
-		} else {
-			return datum.format(DateTimeFormatter.ofPattern("dd.MMMyyyy")).concat("\t")
+			return datum.format(DateTimeFormatter.ofPattern("dd. MMM yyyy")).concat("\t")
 					.concat(String.valueOf(df.format(betrag))).concat("\tEuro\t").concat(kommentar);
+		} else {
+			return datum.format(DateTimeFormatter.ofPattern("dd. MMM yyyy")).concat("\t")
+					.concat(String.valueOf(df.format(betrag))).concat("\t\tEuro\t").concat(kommentar);
 		}
 	}
 

@@ -1,6 +1,7 @@
 package bank;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 
 public class main {
@@ -28,10 +29,29 @@ public class main {
 		lieschen.addKonto(lieschenspar1);
 		lieschen.addKonto(lieschengiro1);
 
-		paulgiro1.abheben(8500, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0));
+		paulgiro1.einzahlen(8500, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0), "Einzahlung ");
 		lieschengiro1.abheben(50, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0));
-		lieschengiro1.abheben(100.5, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0));
+		lieschengiro1.einzahlen(10000.5, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0), "Einzahlung ");
 		lieschenspar1.einzahlen(2850, LocalDateTime.of(2025, Month.FEBRUARY, 11, 0, 0), "Einzahlung ");
+
+		paulgiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q2.getStartDate(2025), LocalTime.of(0, 0)));
+		paulgiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q3.getStartDate(2025), LocalTime.of(0, 0)));
+		paulgiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q4.getStartDate(2025), LocalTime.of(0, 0)));
+		paulgiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q1.getStartDate(2026), LocalTime.of(0, 0)));
+		lieschengiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q2.getStartDate(2025), LocalTime.of(0, 0)));
+		lieschengiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q3.getStartDate(2025), LocalTime.of(0, 0)));
+		lieschengiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q4.getStartDate(2025), LocalTime.of(0, 0)));
+		lieschengiro1.quartalsabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q1.getStartDate(2026), LocalTime.of(0, 0)));
+		lieschenspar1.jahresabschluss(
+				LocalDateTime.of(Kontobewegung.QuarterStart.Q1.getStartDate(2026), LocalTime.of(0, 0)));
 
 		sparkassemuenster.ausgebenKunden();
 		sparkassemuenster.ausgebenKonten();

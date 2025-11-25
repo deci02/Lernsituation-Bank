@@ -30,7 +30,8 @@ public class Bank {
 			ausgabe = ausgabe.concat("\nKontoauszug".concat("\n\tKto-Nr.: ").concat(myKonten.get(i).getKtoNummer())
 					.concat("\n\tBLZ: ").concat(this.blz).concat(", ").concat(this.institsutname)
 					.concat("\n\tKontostand: ").concat(new DecimalFormat("#,##0.00").format(myKonten.get(i).kontostand))
-					.concat(" Euro\n\n"));
+					.concat(" Euro\n\tKontoinhaber: ").concat(this.myKonten.get(i).getMyKunde().getName())
+					.concat("\n\n"));
 			bew = myKonten.get(i).getKontobewegungen();
 			for (int j = 0; j < bew.size(); j++) {
 				ausgabe = ausgabe.concat(String.valueOf(j + 1)).concat("\t")

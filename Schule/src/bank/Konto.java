@@ -52,27 +52,25 @@ public class Konto {
 		return this.myBew;
 	}
 
-	protected void einzahlen(double betrag, LocalDateTime datum, String kommentar) {
+	protected Kontobewegung einzahlen(double betrag, LocalDateTime datum, String kommentar) {
 		Kontobewegung prev = myBew.getLast();
 		Kontobewegung curr = new Kontobewegung(betrag, datum, this, kommentar);
-		calcZins(curr, prev);
+		prev.zinsbetrag = calcZinsbetrag(curr, prev);
 		kontostand = kontostand + betrag;
 		myBew.add(curr);
+		return curr;
 	}
 
-	private void calcZins(Kontobewegung curr, Kontobewegung prev) {
+	protected double calcZinsbetrag(Kontobewegung curr, Kontobewegung prev) {
+		double zinsbetrag = 0;
 		if (this.kontostand > 0) {
-			curr.zinsbetrag = this.kontostand * this.habenzins / 100 * ChronoUnit.DAYS
+			zinsbetrag = this.kontostand * this.habenzins / 100 * ChronoUnit.DAYS
 					.between(prev.getLocalDateTime().toLocalDate(), curr.getLocalDateTime().toLocalDate()) / 365;
 		} else {
-			curr.zinsbetrag = prev.betrag * (this.sollzins / 100) * ChronoUnit.DAYS
-					.between(prev.getLocalDateTime().toLocalDate(), curr.getLocalDateTime().toLocalDate());
+			zinsbetrag = this.kontostand * (this.sollzins / 100) * ChronoUnit.DAYS
+					.between(prev.getLocalDateTime().toLocalDate(), curr.getLocalDateTime().toLocalDate()) / 365;
 		}
-		LocalDate q = curr.checkQuartalswechsel(curr, prev);
-		if (q != null) {
-			LocalDateTime datum = LocalDateTime.of(q, LocalTime.of(0, 0));
-			myBew.add(new Kontobewegung(curr.zinsbetrag, datum, this, "Zinsen"));
-		}
+		return zinsbetrag;
 	}
 
 }

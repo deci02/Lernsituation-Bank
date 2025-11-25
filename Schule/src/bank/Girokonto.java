@@ -26,4 +26,22 @@ public class Girokonto extends Konto {
 		}
 	}
 
+	protected void quartalsabschluss(LocalDateTime datum) {
+		super.einzahlen(0, datum, "Zinsen");
+		this.myBew.getLast().betrag = this.calcZinssumme();
+		this.myBew.getLast().quartalswechsel = true;
+		this.kontostand = this.kontostand + this.myBew.getLast().betrag;
+	}
+
+	protected double calcZinssumme() {
+		double zinssumme = 0;
+		for (int i = myBew.size() - 1; i >= 0; i--) {
+			zinssumme = zinssumme + myBew.get(i).zinsbetrag;
+			if (myBew.get(i).quartalswechsel == true) {
+				break;
+			}
+		}
+		return zinssumme;
+	}
+
 }
