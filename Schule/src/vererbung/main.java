@@ -14,6 +14,11 @@ public class main {
 		v.hinzufuegenMitglied(t);
 		v.hinzufuegenMitglied(a);
 
+		s1.setGehalt(s1.ermittelnGehalt());
+		s2.setGehalt(s2.ermittelnGehalt());
+		t.setGehalt(t.ermittelnGehalt());
+		a.setGehalt(a.ermittelnGehalt());
+
 		v.ausgebenGehaltsliste();
 	}
 

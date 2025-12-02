@@ -9,7 +9,6 @@ public abstract class Person {
 	public Person(String vorname, String name) {
 		this.vorname = vorname;
 		this.name = name;
-		this.setGehalt(this.ermittelnGehalt());
 	}
 
 	public void setGehalt(double gehalt) {
