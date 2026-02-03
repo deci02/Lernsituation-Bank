@@ -13,6 +13,19 @@ public class dhm_haupt {
 	private static final int CERTAINTY = 30;
 
 	public static void main(String[] args) {
+		BigInteger e = BigInteger.valueOf(7);
+		BigInteger d = BigInteger.valueOf(103);
+		BigInteger n = BigInteger.valueOf(143);
+		BigInteger m = BigInteger.valueOf(9);
+
+		if (m.modPow(e, n).modPow(d, n).equals(m)) {
+			System.out.println("jo");
+		} else {
+			System.out.println("nö");
+		}
+	}
+
+	private static void dhm() {
 		BigInteger prim = BigInteger.valueOf(47);
 		BigInteger generator = BigInteger.valueOf(5);
 		if (!dhm_haupt.check_safe_prime(prim)) {
