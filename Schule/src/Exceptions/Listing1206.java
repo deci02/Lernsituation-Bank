@@ -6,7 +6,7 @@ public class Listing1206 {
 		String[] numbers = { "10", "20", "30" };
 		try {
 			for (base = 10; base >= 2; --base) {
-				for (j = 0; j <= 3; ++j) {
+				for (j = 0; j < 3; ++j) {
 					i = Integer.parseInt(numbers[j], base);
 					System.out.println(numbers[j] + " base " + base + " = " + i);
 				}
