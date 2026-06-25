@@ -2,46 +2,72 @@ package Paketstation;
 
 import java.awt.*;
 
-import javax.swing.BoxLayout;
-
 public class Fenster {
 
+	public Frame myFrame;
+	public Panel myPanelNorthGross;
+	public Panel myPanelButton;
+	public Label myLabelEmpfaenger;
+	public Label myLabelMeldung;
+	public TextArea myTextArea;
+	public TextField myTextField;
+	public Button myButtonEinfuegen;
+	public Button myButtonEntnehmen;
+	public Button myButtonListen;
+	public Button myButtonEnde;
+
+	public Fenster() {
+		this.myFrame = new Frame();
+		myFrame.setSize(1000, 600);
+		myFrame.setLayout(new BorderLayout());
+
+		myPanelNorthGross = new Panel(new BorderLayout());
+		myPanelButton = new Panel(new GridLayout(4, 1));
+		myLabelEmpfaenger = new Label();
+		myLabelMeldung = new Label();
+		myTextArea = new TextArea();
+		myTextField = new TextField();
+		myButtonEinfuegen = new Button();
+		myButtonEntnehmen = new Button();
+		myButtonListen = new Button();
+		myButtonEnde = new Button();
+
+		myLabelEmpfaenger.setBackground(Color.GRAY);
+		myLabelEmpfaenger.setText("Empfänger");
+		myTextField.setBackground(Color.YELLOW);
+
+		myButtonEinfuegen.setBackground(Color.LIGHT_GRAY);
+		myButtonEinfuegen.setLabel("Einfügen");
+		myButtonEinfuegen.setActionCommand("Einfuegen");
+		myButtonEntnehmen.setBackground(Color.LIGHT_GRAY);
+		myButtonEntnehmen.setLabel("Entnehmen");
+		myButtonEntnehmen.setActionCommand("Entnehmen");
+		myButtonListen.setBackground(Color.LIGHT_GRAY);
+		myButtonListen.setLabel("Listen");
+		myButtonListen.setActionCommand("Listen");
+		myButtonEnde.setBackground(Color.LIGHT_GRAY);
+		myButtonEnde.setLabel("Ende");
+		myButtonEnde.setActionCommand("Ende");
+
+		myPanelButton.add(myButtonEinfuegen);
+		myPanelButton.add(myButtonEntnehmen);
+		myPanelButton.add(myButtonListen);
+		myPanelButton.add(myButtonEnde);
+
+		myPanelNorthGross.add(myLabelEmpfaenger, BorderLayout.WEST);
+		myPanelNorthGross.add(myTextField, BorderLayout.CENTER);
+		myPanelNorthGross.add(myPanelButton, BorderLayout.EAST);
+
+		myTextArea.setBackground(Color.WHITE);
+
+		myFrame.add(myPanelNorthGross, BorderLayout.NORTH);
+		myFrame.add(myTextArea, BorderLayout.CENTER);
+		myFrame.add(myLabelMeldung, BorderLayout.SOUTH);
+
+		myFrame.setVisible(true);
+	}
+
 	public static void main(String[] args) {
-		Frame fenster = new Frame();
-//		fenster.setBounds(1000, 1000, 1000, 1000);
-		fenster.setSize(1920, 1080);
-		fenster.setTitle("Test");
-		fenster.setLayout(new BorderLayout());
-
-		Panel northGross = new Panel(new BorderLayout());
-		Panel northField1 = new Panel(new GridLayout(3, 1));
-
-		northGross.setSize(1900, 100);
-		northGross.setBackground(Color.RED);
-
-		northField1.setSize(1000, 50);
-		northField1.setBackground(Color.yellow);
-
-		northField1.add(new Button());
-
-		northGross.add(northField1);
-
-
-		Panel panel = new Panel();
-		panel.setLayout(new FlowLayout());
-
-		panel.setBackground(Color.BLUE);
-		Dimension dim = new Dimension();
-		dim.setSize(80, 80);
-		panel.setSize(dim);
-
-		fenster.add(northGross);
-		fenster.add(panel);
-
-		Button button1 = new Button("Button 1");
-		button1.setSize(20, 20);
-		panel.add(button1);
-
-		fenster.setVisible(true);
+		new Fenster();
 	}
 }
